@@ -49,7 +49,7 @@ const Container = ({}) => {
   }, []);
 
   return (
-    <div className='w-full bg-zinc-800 p-4 h-auto'>
+    <div className='w-full bg-zinc-800 py-2 px-2 lg:p-4 h-auto'>
       <div className='flex items-center justify-center flex-col w-full h-auto'>
         <StockTableHeader tableHeaders={tableHeaders} />
         <Stocks getFormattedDate={getFormattedDate} getInSortedForm={getInSortedForm} getTotal={getTotal} calculateProfitOrLoss={calculateProfitOrLoss} stockDetails={stockDetails} setstockDetails={setstockDetails} />
