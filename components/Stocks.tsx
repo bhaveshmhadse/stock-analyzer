@@ -25,20 +25,11 @@ const decideColour = (stockArray, stockDate, index) => {
 };
 
 const removeAStock = (stockArray, setStockArray, stockDate, buyingPrice, sellingPrice, quantity, nameOfStock, timeOfBuying) => {
-  console.log("inside", stockDate, buyingPrice, sellingPrice, quantity, nameOfStock);
-  console.log("Before", stockArray[stockDate]);
   const newArr = stockArray[stockDate].filter(eachObj => eachObj.timeOfBuying != timeOfBuying && eachObj.Buying != buyingPrice && eachObj.Selling != sellingPrice);
-
-  //   console.log("new arr", newArr)
-  console.log("after", newArr);
-
   const answer = confirm(`Do you want to delete this stock?\n\n${getString({ nameOfStock, buyingPrice, sellingPrice, quantity })}`);
-
   if (answer) {
     setStockArray(prev => ({ ...prev, [stockDate]: newArr }));
-    // addToLocalStorage("stockArray", newObj);
   }
-  //   if (!answer) return;
 };
 
 const getString = object => {

@@ -36,16 +36,11 @@ const Container = ({}) => {
     if (!stockBuySellDetails) return;
     if (!(stockBuySellDetails.date in stockDetails)) {
       newObject = { ...stockDetails, [stockBuySellDetails.date]: [{ ...stockBuySellDetails, timeOfBuying: new Date().toLocaleTimeString }] };
-      console.log("NewObject is", newObject);
-
       setstockDetails(await newObject);
     } else {
       newObject = { ...stockDetails, [stockBuySellDetails.date]: [...stockDetails[stockBuySellDetails.date], { ...stockBuySellDetails, timeOfBuying: new Date().toLocaleTimeString }] };
-      console.log("NewObject is", newObject);
       setstockDetails(await newObject);
     }
-    // addToLocalStorage("stockArray", stockDetails);
-
     addToLocalStorage("stockArray", newObject);
   };
 
