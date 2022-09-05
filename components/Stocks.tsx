@@ -1,8 +1,9 @@
+import { convertToRupees } from "../utils/Helper";
+
 const Stocks = ({ getInSortedForm, stockDetails, calculateProfitOrLoss, getTotal, getFormattedDate }) => {
   return (
-    <div className='flex bg-zinc-800 text-gray-200 flex-col w-full'>
+    <div className='flex bg-zinc-800 text-gray-300 flex-col w-full'>
       {getInSortedForm(stockDetails).map(eachStock => {
-        console.log("Details inside stocks component ", stockDetails, eachStock, stockDetails[eachStock]);
         return (
           <div className='flex flex-col w-full py-4' key={Math.random().toString()}>
             {stockDetails[eachStock] && stockDetails[eachStock].map((individualStock, index) => getStockComponent(stockDetails, eachStock, index, individualStock, calculateProfitOrLoss, getTotal, getFormattedDate))}
@@ -14,23 +15,18 @@ const Stocks = ({ getInSortedForm, stockDetails, calculateProfitOrLoss, getTotal
 };
 
 const decideColour = (stockArray, stockDate, index) => {
-  let date = "",
-    details = "",
-    total = "";
+  let [date, details, total] = ["", "", ""];
 
   if (stockArray[stockDate].length == 1 && index == 0) return ["", "", ""];
-
   if (stockArray[stockDate].length - 1 != index) total = "text-transparent";
-
-  if (Math.round((stockArray[stockDate].length - 1) / 2) != index) {
-    date = "text-transparent";
-  }
+  if (Math.round((stockArray[stockDate].length - 1) / 2) != index) date = "text-transparent";
 
   return [date, details, total];
+};
 
-  if (stockArray[stockDate].length == 1 && index == 0) return ["", ""];
-  else if (stockArray[stockDate].length - 1 == index) return ["", ""];
-  else return ["", "text-transparent"];
+const handleTouch = (stockArray, stockDate, buyingPrice, sellingPrice, quantity) => {
+  const answer = confirm("Do you want to edit this value?");
+  if (!answer) return;
 };
 
 const getStockComponent = (stockArray, stockDate, index, individualStock, calculateProfitOrLoss, getTotal, getFormattedDate) => {
@@ -55,14 +51,14 @@ const getStockComponent = (stockArray, stockDate, index, individualStock, calcul
       <div className={`flex m-auto overflow-hidden whitespace-nowrap ${otherDetail}`} key={Math.random().toString()}>
         {Selling}
       </div>
-      <div className={`flex m-auto overflow-hidden whitespace-nowrap  ${calculateProfitOrLoss(Buying, Selling).bgColour} ${otherDetail}`} key={Math.random().toString()}>
-        {calculateProfitOrLoss(Buying, Selling).isProfit ? (Qty * Selling - Qty * Buying).toFixed(2) : "-"}
+      <div onClick={() => {}} className={`flex m-auto overflow-hidden whitespace-nowrap  ${calculateProfitOrLoss(Buying, Selling).bgColour} ${otherDetail}`} key={Math.random().toString()}>
+        {calculateProfitOrLoss(Buying, Selling).isProfit ? convertToRupees((Qty * Selling - Qty * Buying).toFixed(2)) : "-"}
       </div>
-      <div className={`flex m-auto overflow-hidden whitespace-nowrap ${calculateProfitOrLoss(Buying, Selling).bgColour} ${otherDetail}`} key={Math.random().toString()}>
-        {calculateProfitOrLoss(Buying, Selling).isProfit ? "-" : (Buying * Qty - Selling * Qty).toFixed(2)}
+      <div onClick={() => {}} className={`flex m-auto overflow-hidden whitespace-nowrap ${calculateProfitOrLoss(Buying, Selling).bgColour} ${otherDetail}`} key={Math.random().toString()}>
+        {calculateProfitOrLoss(Buying, Selling).isProfit ? "-" : convertToRupees((Qty * Selling - Qty * Buying).toFixed(2))}
       </div>
       <div className={`flex m-auto overflow-hidden whitespace-nowrap ${getTotal(stockDate, stockArray) >= 0 ? "text-green-500" : "text-rose-500"} ${totalDetail}`} key={Math.random().toString()}>
-        {getTotal(stockDate, stockArray)}
+        {convertToRupees(getTotal(stockDate, stockArray))}
       </div>
     </div>
   );

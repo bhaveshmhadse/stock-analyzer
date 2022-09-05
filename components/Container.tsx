@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 
 import Stocks from "./Stocks";
 import StockModal from "./StockModal";
+import DeleteAllButton from "./DeleteAllButton";
 import StockTableHeader from "./StockTableHeader";
 import AddNewStockButton from "./AddNewStockButton";
 
 import { headers, stocksArray } from "./Data";
 import { getFormattedDate, getInSortedForm, getTotal } from "../utils/Helper";
-import DeleteAllButton from "./DeleteAllButton";
 
 const Container = ({}) => {
   let [showDetails, setshowDetails] = useState(false);
@@ -59,7 +59,7 @@ const Container = ({}) => {
         <Stocks getFormattedDate={getFormattedDate} getInSortedForm={getInSortedForm} getTotal={getTotal} calculateProfitOrLoss={calculateProfitOrLoss} stockDetails={stockDetails} />
         <StockModal showDetails={showDetails} setshowDetails={setshowDetails} addStock={addStock} handleChange={handleChange} />
         <AddNewStockButton addDetails={addDetails} />
-        <DeleteAllButton/>
+        <DeleteAllButton />
       </div>
     </div>
   );

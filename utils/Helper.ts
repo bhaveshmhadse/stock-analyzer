@@ -18,4 +18,11 @@ const getTotal = (date, stockDetails) => {
   return total;
 };
 
-export { getFormattedDate, getInSortedForm, getTotal };
+const convertToRupees = amount => {
+  return parseInt(amount).toLocaleString("en-IN", {
+    style: "currency",
+    currency: "INR",
+  });
+};
+
+export { getFormattedDate, getInSortedForm, getTotal, convertToRupees };
