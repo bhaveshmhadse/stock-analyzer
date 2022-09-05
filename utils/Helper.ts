@@ -1,6 +1,8 @@
 import Moment from "moment";
 
 const getFormattedDate = date => Moment(date).format("DD-MM-YYYY");
+const getFromLocalStorage = key => JSON.parse(localStorage.getItem(key));
+const addToLocalStorage = (key, value) => localStorage.setItem(key, JSON.stringify(value));
 const getInSortedForm = largeObject => Object.keys(largeObject).sort((a: any, b: any) => a - b);
 
 const getTotal = (date, stockDetails) => {
@@ -25,4 +27,4 @@ const convertToRupees = amount => {
   });
 };
 
-export { getFormattedDate, getInSortedForm, getTotal, convertToRupees };
+export { getFormattedDate, getInSortedForm, getTotal, convertToRupees, addToLocalStorage, getFromLocalStorage };

@@ -7,7 +7,7 @@ import StockTableHeader from "./StockTableHeader";
 import AddNewStockButton from "./AddNewStockButton";
 
 import { headers, stocksArray } from "./Data";
-import { getFormattedDate, getInSortedForm, getTotal } from "../utils/Helper";
+import { addToLocalStorage, getFormattedDate, getFromLocalStorage, getInSortedForm, getTotal } from "../utils/Helper";
 
 const Container = ({}) => {
   let [showDetails, setshowDetails] = useState(false);
@@ -15,8 +15,6 @@ const Container = ({}) => {
   let [stockDetails, setstockDetails] = useState(stocksArray);
   let [stockBuySellDetails, setstockBuySellDetails] = useState({ date: "", time: "", nameOfStock: "", Qty: 0, Buying: 0, Selling: 0 });
 
-  const getFromLocalStorage = key => JSON.parse(localStorage.getItem(key));
-  const addToLocalStorage = (key, value) => localStorage.setItem(key, JSON.stringify(value));
   const handleChange = (e: any) => setstockBuySellDetails(prev => ({ ...prev, [e.target.name]: e.target.value }));
 
   const addDetails = () => {
@@ -37,10 +35,13 @@ const Container = ({}) => {
 
     if (!stockBuySellDetails) return;
     if (!(stockBuySellDetails.date in stockDetails)) {
-      newObject = { ...stockDetails, [stockBuySellDetails.date]: [stockBuySellDetails] };
+      newObject = { ...stockDetails, [stockBuySellDetails.date]: [{ ...stockBuySellDetails, timeOfBuying: new Date().toLocaleTimeString }] };
+      console.log("NewObject is", newObject);
+
       setstockDetails(await newObject);
     } else {
-      newObject = { ...stockDetails, [stockBuySellDetails.date]: [...stockDetails[stockBuySellDetails.date], stockBuySellDetails] };
+      newObject = { ...stockDetails, [stockBuySellDetails.date]: [...stockDetails[stockBuySellDetails.date], { ...stockBuySellDetails, timeOfBuying: new Date().toLocaleTimeString }] };
+      console.log("NewObject is", newObject);
       setstockDetails(await newObject);
     }
     // addToLocalStorage("stockArray", stockDetails);
@@ -56,7 +57,7 @@ const Container = ({}) => {
     <div className='w-full bg-zinc-800 p-4 h-auto'>
       <div className='flex items-center justify-center flex-col w-full h-auto'>
         <StockTableHeader tableHeaders={tableHeaders} />
-        <Stocks getFormattedDate={getFormattedDate} getInSortedForm={getInSortedForm} getTotal={getTotal} calculateProfitOrLoss={calculateProfitOrLoss} stockDetails={stockDetails} />
+        <Stocks getFormattedDate={getFormattedDate} getInSortedForm={getInSortedForm} getTotal={getTotal} calculateProfitOrLoss={calculateProfitOrLoss} stockDetails={stockDetails} setstockDetails={setstockDetails} />
         <StockModal showDetails={showDetails} setshowDetails={setshowDetails} addStock={addStock} handleChange={handleChange} />
         <AddNewStockButton addDetails={addDetails} />
         <DeleteAllButton />
