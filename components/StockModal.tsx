@@ -12,10 +12,10 @@ const StockModal = ({ showDetails, setshowDetails, addStock, handleChange }) => 
             </div>
             <input onChange={handleChange} name={"Selling"} className='font flex p-2 rounded-md my-1 bg-zinc-600 text-gray-400 font-bold' type='text' placeholder='Selling Price' />
             <div className='w-full flex '>
-              <button onClick={() => setshowDetails(false)} className='font w-full mt-2 text-red-400 rounded-lg py-2 font-extrabold lg:text-lg text-base uppercase left-0'>
+              <button onClick={() => setshowDetails(false)} className='font w-full mt-2 text-red-400 rounded-lg py-2 font-extrabold font uppercase left-0'>
                 Cancel
               </button>
-              <button className='w-full mt-2 text-green-400 rounded-lg py-2 font-extrabold lg:text-lg text-base uppercase ml-auto' onClick={addStock}>
+              <button className='w-full mt-2 text-green-400 rounded-lg py-2 font-extrabold font uppercase ml-auto' onClick={addStock}>
                 Add
               </button>
             </div>
