@@ -8,7 +8,7 @@ const DeleteAllButton = () => {
   };
   return (
     <div className='fixed bottom-0 left-0 m-8'>
-      <button onClick={handleDelete} className='font-bold text-red-500 bg-zinc-800 text-4xl px-8 py-1 rounded-lg  animate-pulse'>
+      <button onClick={handleDelete} className='font-bold text-red-500 bg-transparent text-lg lg:text-4xl px-6 lg:px-8 py-1 rounded-lg  animate-pulse'>
         -
       </button>
     </div>

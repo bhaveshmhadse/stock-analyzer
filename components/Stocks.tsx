@@ -2,7 +2,7 @@ import { addToLocalStorage, convertToRupees } from "../utils/Helper";
 
 const Stocks = ({ getInSortedForm, stockDetails, setstockDetails, calculateProfitOrLoss, getTotal, getFormattedDate }) => {
   return (
-    <div className='flex bg-zinc-800 text-gray-300 flex-col w-full'>
+    <div className='flex bg-zinc-800 text-gray-400 flex-col w-full'>
       {getInSortedForm(stockDetails).map(eachStock => {
         return (
           <div className='flex flex-col w-full py-4' key={Math.random().toString()}>
@@ -47,29 +47,29 @@ const getStockComponent = (stockArray, stockDate, index, individualStock, calcul
   const { date, nameOfStock, Qty, Buying, Selling, timeOfBuying } = individualStock;
 
   return (
-    <div className='p-3 font-black grid w-full grid-cols-8 h-auto' key={Math.random().toString()}>
-      <div className={`flex m-auto overflow-hidden whitespace-nowrap ${dateDetail}`} key={Math.random().toString()}>
+    <div className='py-3 px-0 font-black grid w-full grid-cols-8 h-auto text-center' key={Math.random().toString()}>
+      <div className={`flex font m-auto overflow-hidden whitespace-nowrap text-left ${dateDetail}`} key={Math.random().toString()}>
         {getFormattedDate(date)}
       </div>
-      <div className={`flex m-auto overflow-hidden whitespace-nowrap ${otherDetail}`} key={Math.random().toString()}>
+      <div className={`flex font m-auto overflow-hidden  ${otherDetail}`} key={Math.random().toString()}>
         {nameOfStock}
       </div>
-      <div className={`flex m-auto overflow-hidden whitespace-nowrap ${otherDetail}`} key={Math.random().toString()}>
+      <div className={`flex font m-auto overflow-hidden whitespace-nowrap ${otherDetail}`} key={Math.random().toString()}>
         {Qty}
       </div>
-      <div className={`flex m-auto overflow-hidden whitespace-nowrap ${otherDetail}`} key={Math.random().toString()}>
+      <div className={`flex font m-auto overflow-hidden whitespace-nowrap ${otherDetail}`} key={Math.random().toString()}>
         {Buying}
       </div>
-      <div className={`flex m-auto overflow-hidden whitespace-nowrap ${otherDetail}`} key={Math.random().toString()}>
+      <div className={`flex font m-auto overflow-hidden whitespace-nowrap ${otherDetail}`} key={Math.random().toString()}>
         {Selling}
       </div>
-      <div onClick={() => removeAStock(stockArray, setstockArray, stockDate, Buying, Selling, Qty, nameOfStock, timeOfBuying)} className={`flex m-auto overflow-hidden whitespace-nowrap  ${calculateProfitOrLoss(Buying, Selling).bgColour} ${otherDetail}`} key={Math.random().toString()}>
+      <div onClick={() => removeAStock(stockArray, setstockArray, stockDate, Buying, Selling, Qty, nameOfStock, timeOfBuying)} className={`flex font m-auto overflow-hidden whitespace-nowrap  ${calculateProfitOrLoss(Buying, Selling).bgColour} ${otherDetail}`} key={Math.random().toString()}>
         {calculateProfitOrLoss(Buying, Selling).isProfit ? convertToRupees((Qty * Selling - Qty * Buying).toFixed(2)) : "-"}
       </div>
-      <div onClick={() => removeAStock(stockArray, setstockArray, stockDate, Buying, Selling, Qty, nameOfStock, timeOfBuying)} className={`flex m-auto overflow-hidden whitespace-nowrap ${calculateProfitOrLoss(Buying, Selling).bgColour} ${otherDetail}`} key={Math.random().toString()}>
+      <div onClick={() => removeAStock(stockArray, setstockArray, stockDate, Buying, Selling, Qty, nameOfStock, timeOfBuying)} className={`flex font m-auto overflow-hidden whitespace-nowrap ${calculateProfitOrLoss(Buying, Selling).bgColour} ${otherDetail}`} key={Math.random().toString()}>
         {calculateProfitOrLoss(Buying, Selling).isProfit ? "-" : convertToRupees((Qty * Selling - Qty * Buying).toFixed(2))}
       </div>
-      <div className={`flex m-auto overflow-hidden whitespace-nowrap ${getTotal(stockDate, stockArray) >= 0 ? "text-green-500" : "text-rose-500"} ${totalDetail}`} key={Math.random().toString()}>
+      <div className={`flex font m-auto overflow-hidden whitespace-nowrap ${getTotal(stockDate, stockArray) >= 0 ? "text-green-500" : "text-rose-500"} ${totalDetail}`} key={Math.random().toString()}>
         {convertToRupees(getTotal(stockDate, stockArray))}
       </div>
     </div>

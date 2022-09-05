@@ -1,8 +1,8 @@
 const StockTableHeader = ({ tableHeaders }) => {
   return (
-    <div className='grid w-full grid-cols-8 h-auto bg-zinc-700 p-2 font-black text-gray-400 rounded-lg uppercase '>
+    <div className='grid w-full grid-cols-8 h-auto bg-zinc-700 lg:p-2 p-1 font-black text-gray-300 lg:rounded-lg rounded-md uppercase '>
       {tableHeaders.map(eachHeader => (
-        <div className='flex m-auto overflow-hidden py-4' key={Math.random().toString()}>
+        <div  className='font flex m-auto overflow-hidden lg:py-2 p-0' key={Math.random().toString()}>
           {eachHeader}
         </div>
       ))}
