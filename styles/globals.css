@@ -30,10 +30,16 @@ a {
 .font {
   font-size: 11px;
 }
+.fontSmaller {
+  font-size: 9px;
+}
 
-@media  (min-width: 600px) {
+@media (min-width: 600px) {
   .font {
     font-size: 14px;
+  }
+  .fontSmaller {
+    font-size: 12px;
   }
 }
 

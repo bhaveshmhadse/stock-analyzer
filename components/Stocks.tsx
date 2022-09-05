@@ -48,28 +48,28 @@ const getStockComponent = (stockArray, stockDate, index, individualStock, calcul
 
   return (
     <div className='py-3 px-0 font-black grid w-full grid-cols-8 h-auto text-center' key={Math.random().toString()}>
-      <div className={`flex font m-auto overflow-hidden whitespace-nowrap text-left ${dateDetail}`} key={Math.random().toString()}>
+      <div className={`flex fontSmaller m-auto overflow-hidden whitespace-nowrap text-left ${dateDetail}`} key={Math.random().toString()}>
         {getFormattedDate(date)}
       </div>
-      <div className={`flex font m-auto overflow-hidden  ${otherDetail}`} key={Math.random().toString()}>
+      <div className={`flex fontSmaller m-auto overflow-hidden  ${otherDetail}`} key={Math.random().toString()}>
         {nameOfStock}
       </div>
-      <div className={`flex font m-auto overflow-hidden whitespace-nowrap ${otherDetail}`} key={Math.random().toString()}>
+      <div className={`flex fontSmaller m-auto overflow-hidden whitespace-nowrap ${otherDetail}`} key={Math.random().toString()}>
         {Qty}
       </div>
-      <div className={`flex font m-auto overflow-hidden whitespace-nowrap ${otherDetail}`} key={Math.random().toString()}>
+      <div className={`flex fontSmaller m-auto overflow-hidden whitespace-nowrap ${otherDetail}`} key={Math.random().toString()}>
         {Buying}
       </div>
-      <div className={`flex font m-auto overflow-hidden whitespace-nowrap ${otherDetail}`} key={Math.random().toString()}>
+      <div className={`flex fontSmaller m-auto overflow-hidden whitespace-nowrap ${otherDetail}`} key={Math.random().toString()}>
         {Selling}
       </div>
-      <div onClick={() => removeAStock(stockArray, setstockArray, stockDate, Buying, Selling, Qty, nameOfStock, timeOfBuying)} className={`flex font m-auto overflow-hidden whitespace-nowrap  ${calculateProfitOrLoss(Buying, Selling).bgColour} ${otherDetail}`} key={Math.random().toString()}>
+      <div onClick={() => removeAStock(stockArray, setstockArray, stockDate, Buying, Selling, Qty, nameOfStock, timeOfBuying)} className={`flex fontSmaller m-auto overflow-hidden whitespace-nowrap  ${calculateProfitOrLoss(Buying, Selling).bgColour} ${otherDetail}`} key={Math.random().toString()}>
         {calculateProfitOrLoss(Buying, Selling).isProfit ? convertToRupees((Qty * Selling - Qty * Buying).toFixed(2)) : "-"}
       </div>
-      <div onClick={() => removeAStock(stockArray, setstockArray, stockDate, Buying, Selling, Qty, nameOfStock, timeOfBuying)} className={`flex font m-auto overflow-hidden whitespace-nowrap ${calculateProfitOrLoss(Buying, Selling).bgColour} ${otherDetail}`} key={Math.random().toString()}>
+      <div onClick={() => removeAStock(stockArray, setstockArray, stockDate, Buying, Selling, Qty, nameOfStock, timeOfBuying)} className={`flex fontSmaller m-auto overflow-hidden whitespace-nowrap ${calculateProfitOrLoss(Buying, Selling).bgColour} ${otherDetail}`} key={Math.random().toString()}>
         {calculateProfitOrLoss(Buying, Selling).isProfit ? "-" : convertToRupees((Qty * Selling - Qty * Buying).toFixed(2))}
       </div>
-      <div className={`flex font m-auto overflow-hidden whitespace-nowrap ${getTotal(stockDate, stockArray) >= 0 ? "text-green-500" : "text-rose-500"} ${totalDetail}`} key={Math.random().toString()}>
+      <div className={`flex fontSmaller m-auto overflow-hidden whitespace-nowrap ${getTotal(stockDate, stockArray) >= 0 ? "text-green-500" : "text-rose-500"} ${totalDetail}`} key={Math.random().toString()}>
         {convertToRupees(getTotal(stockDate, stockArray))}
       </div>
     </div>
