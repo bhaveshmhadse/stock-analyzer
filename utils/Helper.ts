@@ -20,8 +20,8 @@ const getTotal = (date, stockDetails) => {
   return total;
 };
 
-const convertToRupees = amount => {
-  return parseInt(amount).toLocaleString("en-IN", {
+const convertToRupees = (amount) => {
+  return parseInt(parseInt(amount).toFixed(2)).toLocaleString("en-IN", {
     style: "currency",
     currency: "INR",
   });

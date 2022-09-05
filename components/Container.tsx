@@ -13,7 +13,7 @@ const Container = ({}) => {
   let [showDetails, setshowDetails] = useState(false);
   let [tableHeaders, settableHeaders] = useState(headers);
   let [stockDetails, setstockDetails] = useState(stocksArray);
-  let [stockBuySellDetails, setstockBuySellDetails] = useState({ date: "", time: "", nameOfStock: "", Qty: 0, Buying: 0, Selling: 0 });
+  let [stockBuySellDetails, setstockBuySellDetails] = useState({ date: undefined, time: "", nameOfStock: "", Qty: 0, Buying: 0, Selling: 0 });
 
   const handleChange = (e: any) => setstockBuySellDetails(prev => ({ ...prev, [e.target.name]: e.target.value }));
 
@@ -53,7 +53,10 @@ const Container = ({}) => {
       <div className='flex items-center justify-center flex-col w-full h-auto'>
         <StockTableHeader tableHeaders={tableHeaders} />
         <Stocks getFormattedDate={getFormattedDate} getInSortedForm={getInSortedForm} getTotal={getTotal} calculateProfitOrLoss={calculateProfitOrLoss} stockDetails={stockDetails} setstockDetails={setstockDetails} />
-        <StockModal showDetails={showDetails} setshowDetails={setshowDetails} addStock={addStock} handleChange={handleChange} />
+        <StockModal 
+        stockBuySellDetails={stockBuySellDetails}
+        
+        showDetails={showDetails} setshowDetails={setshowDetails} addStock={addStock} handleChange={handleChange} />
         <AddNewStockButton addDetails={addDetails} />
         <DeleteAllButton />
       </div>
