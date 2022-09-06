@@ -63,7 +63,7 @@ const getStockComponent = (stockArray, stockDate, index, individualStock, calcul
       <div className={`flex fontSmaller m-auto overflow-hidden whitespace-nowrap text-left ${dateDetail}`} key={Math.random().toString()}>
         {getFormattedDate(date)}
       </div>
-      <div className={`flex fontSmaller m-auto overflow-hidden  ${otherDetail}`} key={Math.random().toString()}>
+      <div className={`flex fontSmaller m-auto overflow-hidden  ${otherDetail} select-text`} key={Math.random().toString()}>
         {nameOfStock}
       </div>
       <div onClick={() => handleValueChange(stockArray, setstockArray, stockDate, Buying, Selling, timeOfBuying, 1)} className={`flex fontSmaller m-auto overflow-hidden whitespace-nowrap ${otherDetail}`} key={Math.random().toString()}>
