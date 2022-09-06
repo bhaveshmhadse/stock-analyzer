@@ -7,10 +7,10 @@ const StockModal = ({ showDetails, setshowDetails, addStock, handleChange, stock
             <input onChange={handleChange} name={"date"} className='font flex p-2 rounded-md my-1 bg-zinc-600 text-gray-400 font-bold w-full' type='date' value={stockBuySellDetails["date"] || new Date().toJSON().toString().substring(0, 10)} placeholder='11/05/2001' />
             <input onChange={handleChange} name={"nameOfStock"} className='font flex p-2 rounded-md my-1 bg-zinc-600 text-gray-400 font-bold' type='text' placeholder='Stock Name' />
             <div className='flex w-full my-1'>
-              <input onChange={handleChange} name={"Qty"} className='font w-2/4 mr-3 flex p-2 rounded-md bg-zinc-600 text-gray-400 font-bold' type='text' placeholder='Qty' />
-              <input onChange={handleChange} name={"Buying"} className='font w-full flex p-2 rounded-md  bg-zinc-600 text-gray-400 font-bold' type='text' placeholder='Buying Price' />
+              <input onChange={handleChange} name={"Qty"} className='font w-2/4 mr-3 flex p-2 rounded-md bg-zinc-600 text-gray-400 font-bold' type='number' placeholder='Qty' />
+              <input onChange={handleChange} name={"Buying"} className='font w-full flex p-2 rounded-md  bg-zinc-600 text-gray-400 font-bold' type='number' placeholder='Buying Price' />
             </div>
-            <input onChange={handleChange} name={"Selling"} className='font flex p-2 rounded-md my-1 bg-zinc-600 text-gray-400 font-bold' type='text' placeholder='Selling Price' />
+            <input onChange={handleChange} name={"Selling"} className='font flex p-2 rounded-md my-1 bg-zinc-600 text-gray-400 font-bold' type='number' placeholder='Selling Price' />
             <div className='w-full flex '>
               <button onClick={() => setshowDetails(false)} className='font w-full mt-2 text-red-400 rounded-lg py-2 font-extrabold font uppercase left-0'>
                 Cancel
