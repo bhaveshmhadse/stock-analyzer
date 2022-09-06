@@ -35,10 +35,10 @@ const Container = ({}) => {
 
     if (!stockBuySellDetails) return;
     if (!(stockBuySellDetails.date in stockDetails)) {
-      newObject = { ...stockDetails, [stockBuySellDetails.date]: [{ ...stockBuySellDetails, timeOfBuying: new Date().toLocaleTimeString() }] };
+      newObject = { ...stockDetails, [stockBuySellDetails.date]: [{ ...stockBuySellDetails, timeOfBuying: Date.now() }] };
       setstockDetails(await newObject);
     } else {
-      newObject = { ...stockDetails, [stockBuySellDetails.date]: [...stockDetails[stockBuySellDetails.date], { ...stockBuySellDetails, timeOfBuying: new Date().toLocaleTimeString() }] };
+      newObject = { ...stockDetails, [stockBuySellDetails.date]: [...stockDetails[stockBuySellDetails.date], { ...stockBuySellDetails, timeOfBuying: Date.now() }] };
       setstockDetails(await newObject);
     }
     addToLocalStorage("stockArray", newObject);
