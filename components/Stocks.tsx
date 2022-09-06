@@ -1,4 +1,4 @@
-import { addToLocalStorage, convertToRupees } from "../utils/Helper";
+import { addToLocalStorage, convertToRupees, getBeautifiedJSONString } from "../utils/Helper";
 
 const Stocks = ({ getInSortedForm, stockDetails, setstockDetails, calculateProfitOrLoss, getTotal, getFormattedDate }) => {
   return (
@@ -24,27 +24,39 @@ const decideColour = (stockArray, stockDate, index) => {
   return [date, details, total];
 };
 
-const removeAStock = (stockArray, setStockArray, stockDate, buyingPrice, sellingPrice, quantity, nameOfStock, timeOfBuying) => {
+const removeAStock = (stockArray, setStockArray, stockDate, buyingPrice, sellingPrice, timeOfBuying) => {
   const newArr = stockArray[stockDate].filter(eachObj => eachObj.timeOfBuying != timeOfBuying && eachObj.Buying != buyingPrice && eachObj.Selling != sellingPrice);
-  const answer = confirm(`Do you want to delete this stock?\n\n${getString({ nameOfStock, buyingPrice, sellingPrice, quantity })}`);
+  const objectToDelete = stockArray[stockDate].find(eachObj => eachObj.timeOfBuying == timeOfBuying && eachObj.Buying == buyingPrice && eachObj.Selling == sellingPrice);
+  const answer = confirm(`Do you want to delete this stock?\n\n${getBeautifiedJSONString(objectToDelete)}`);
+
+  let newObj = { ...stockArray, [stockDate]: newArr };
   if (answer) {
-    setStockArray(prev => ({ ...prev, [stockDate]: newArr }));
+    setStockArray(newObj);
+    addToLocalStorage("stockArray", newObj);
   }
 };
 
-const getString = object => {
-  let string = "";
+const handleValueChange = (stockArray, setStockArray, stockDate, buyingPrice, sellingPrice, timeOfBuying, valueToUpdate) => {
+  const newArr = stockArray[stockDate].filter(eachObj => eachObj.timeOfBuying != timeOfBuying && eachObj.Buying != buyingPrice && eachObj.Selling != sellingPrice);
+  const objectToUpdate = stockArray[stockDate].find(eachObj => eachObj.timeOfBuying == timeOfBuying && eachObj.Buying == buyingPrice && eachObj.Selling == sellingPrice);
 
-  for (let [key, value] of Object.entries(object)) {
-    string = string + key.toUpperCase() + " :   " + value + "\n";
-  }
-  return string;
+  let value = prompt("Enter the value");
+
+  if (!value) return;
+
+  if (valueToUpdate == 1) objectToUpdate.Qty = parseFloat(value);
+  if (valueToUpdate == 2) objectToUpdate.Buying = parseFloat(value);
+  if (valueToUpdate == 3) objectToUpdate.Selling = parseFloat(value);
+
+  let newObject = { ...stockArray, [stockDate]: [...newArr, objectToUpdate] };
+
+  setStockArray(newObject);
+  addToLocalStorage("stockArray", newObject);
 };
 
 const getStockComponent = (stockArray, stockDate, index, individualStock, calculateProfitOrLoss, getTotal, getFormattedDate, setstockArray) => {
-  let [dateDetail, otherDetail, totalDetail] = decideColour(stockArray, stockDate, index);
-
   const { date, nameOfStock, Qty, Buying, Selling, timeOfBuying } = individualStock;
+  const [dateDetail, otherDetail, totalDetail] = decideColour(stockArray, stockDate, index);
 
   return (
     <div className='py-3 px-0 font-black grid w-full grid-cols-8 h-auto text-center' key={Math.random().toString()}>
@@ -54,19 +66,19 @@ const getStockComponent = (stockArray, stockDate, index, individualStock, calcul
       <div className={`flex fontSmaller m-auto overflow-hidden  ${otherDetail}`} key={Math.random().toString()}>
         {nameOfStock}
       </div>
-      <div className={`flex fontSmaller m-auto overflow-hidden whitespace-nowrap ${otherDetail}`} key={Math.random().toString()}>
-        {Qty}
+      <div onClick={() => handleValueChange(stockArray, setstockArray, stockDate, Buying, Selling, timeOfBuying, 1)} className={`flex fontSmaller m-auto overflow-hidden whitespace-nowrap ${otherDetail}`} key={Math.random().toString()}>
+        {parseInt(Qty)}
       </div>
-      <div className={`flex fontSmaller m-auto overflow-hidden whitespace-nowrap ${otherDetail}`} key={Math.random().toString()}>
-        {Buying}
+      <div onClick={() => handleValueChange(stockArray, setstockArray, stockDate, Buying, Selling, timeOfBuying, 2)} className={`flex fontSmaller m-auto overflow-hidden whitespace-nowrap ${otherDetail}`} key={Math.random().toString()}>
+        {parseFloat(Buying).toFixed(2)}
       </div>
-      <div className={`flex fontSmaller m-auto overflow-hidden whitespace-nowrap ${otherDetail}`} key={Math.random().toString()}>
-        {Selling}
+      <div onClick={() => handleValueChange(stockArray, setstockArray, stockDate, Buying, Selling, timeOfBuying, 3)} className={`flex fontSmaller m-auto overflow-hidden whitespace-nowrap ${otherDetail}`} key={Math.random().toString()}>
+        {parseFloat(Selling).toFixed(2)}
       </div>
-      <div onClick={() => removeAStock(stockArray, setstockArray, stockDate, Buying, Selling, Qty, nameOfStock, timeOfBuying)} className={`flex fontSmaller m-auto overflow-hidden whitespace-nowrap  ${calculateProfitOrLoss(Buying, Selling).bgColour} ${otherDetail}`} key={Math.random().toString()}>
+      <div onClick={() => removeAStock(stockArray, setstockArray, stockDate, Buying, Selling, timeOfBuying)} className={`flex fontSmaller m-auto overflow-hidden whitespace-nowrap  ${calculateProfitOrLoss(Buying, Selling).bgColour} ${otherDetail}`} key={Math.random().toString()}>
         {calculateProfitOrLoss(Buying, Selling).isProfit ? convertToRupees((Qty * Selling - Qty * Buying).toFixed(2)) : "-"}
       </div>
-      <div onClick={() => removeAStock(stockArray, setstockArray, stockDate, Buying, Selling, Qty, nameOfStock, timeOfBuying)} className={`flex fontSmaller m-auto overflow-hidden whitespace-nowrap ${calculateProfitOrLoss(Buying, Selling).bgColour} ${otherDetail}`} key={Math.random().toString()}>
+      <div onClick={() => removeAStock(stockArray, setstockArray, stockDate, Buying, Selling, timeOfBuying)} className={`flex fontSmaller m-auto overflow-hidden whitespace-nowrap ${calculateProfitOrLoss(Buying, Selling).bgColour} ${otherDetail}`} key={Math.random().toString()}>
         {calculateProfitOrLoss(Buying, Selling).isProfit ? "-" : convertToRupees((Qty * Selling - Qty * Buying).toFixed(2))}
       </div>
       <div className={`flex fontSmaller m-auto overflow-hidden whitespace-nowrap ${getTotal(stockDate, stockArray) >= 0 ? "text-green-500" : "text-rose-500"} ${totalDetail}`} key={Math.random().toString()}>
