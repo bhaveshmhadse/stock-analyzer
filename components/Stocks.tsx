@@ -26,7 +26,7 @@ const decideColour = (stockArray, stockDate, index) => {
 
 const removeAStock = (stockArray, setStockArray, stockDate, buyingPrice, sellingPrice, timeOfBuying) => {
   const newArr = stockArray[stockDate].filter(eachObj => eachObj.timeOfBuying != timeOfBuying && eachObj.Buying != buyingPrice && eachObj.Selling != sellingPrice);
-  const objectToDelete = stockArray[stockDate].find(eachObj => eachObj.timeOfBuying == timeOfBuying && eachObj.Buying == buyingPrice && eachObj.Selling == sellingPrice);
+  const objectToDelete = stockArray[stockDate].find(eachObj => eachObj.timeOfBuying == timeOfBuying);
   const answer = confirm(`Do you want to delete this stock?\n\n${getBeautifiedJSONString(objectToDelete)}`);
 
   let newObj = { ...stockArray, [stockDate]: newArr };
